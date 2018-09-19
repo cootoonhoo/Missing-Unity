@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 	SpriteRenderer Sr;
-	public float horizontalSpeed = 10f ;
-	public float jumpSpeed = 600f;
+	public float horizontalSpeed = 5f ;
+	public float jumpSpeed = 60f;
 	Rigidbody2D rb;
 
 	// Use this for initialization
@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour {
 		else {
 			StopMovingHorizontal();
 		}
+		if(Input.GetButtonDown("Jump")){
+			Jump();
+		}
 		
 	}
 	
@@ -40,8 +43,9 @@ public class PlayerController : MonoBehaviour {
 	}
 	void StopMovingHorizontal(){
 		//Função de "parada" do player
-		rb.velocity = new Vector2(0f, rb.velocity.y);
-		//if(!isJumping){ "Não temos a função de pulo"
-		//	anim.SetInteger("State" , 0);			
+		rb.velocity = new Vector2(0f, rb.velocity.y);			
+		}
+		void Jump(){
+			rb.AddForce(new Vector2(0,jumpSpeed));
 		}
 }
