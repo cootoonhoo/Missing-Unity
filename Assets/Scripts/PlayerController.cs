@@ -26,15 +26,18 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x,feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, WhatIsGround); //Teste parar constatar se o personagem esta no chão
-		//teste para andar
-		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 Esquerda, 1 Direita
-		float horizontalPlayerSpeed = horizontalSpeed*horizontalInput;
-		if(horizontalPlayerSpeed !=0 ){
-			MoveHorizontal(horizontalPlayerSpeed);
+		if(isGrounded){//CASO O PLAYER ESTIVER PULANDO, O MOVIMENTO NO EIXO X
+			//teste para andar
+			float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 Esquerda, 1 Direita
+			float horizontalPlayerSpeed = horizontalSpeed*horizontalInput;
+			if(horizontalPlayerSpeed !=0 ){
+				MoveHorizontal(horizontalPlayerSpeed);
+			}
+			else {
+				StopMovingHorizontal();
+			}
 		}
-		else {
-			StopMovingHorizontal();
-		}
+
 		if(isGrounded){
 			if(Input.GetButtonDown("Jump")){
 			Jump();
