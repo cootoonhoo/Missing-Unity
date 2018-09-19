@@ -7,15 +7,25 @@ public class PlayerController : MonoBehaviour {
 	public float horizontalSpeed = 5f ;
 	public float jumpSpeed = 60f;
 	Rigidbody2D rb;
+	public Transform feet;
+	public float feetWidth = 0.2f;
+	public float feetHeight = 0.05f;
+	public bool isGrounded;
+	public LayerMask WhatIsGround;
+	bool isJumping = false;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		Sr = GetComponent<SpriteRenderer>();		
 	}
-	
+
+	void OnDrawGizmos(){ // Desenhar a hit box do feet
+		Gizmos.DrawWireCube(feet.position, new Vector3(feetWidth,feetHeight,0f));
+	}	
 	// Update is called once per frame
 	void Update () {
+		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x,feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, WhatIsGround); //Teste parar constatar se o personagem esta no chão
 		//teste para andar
 		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 Esquerda, 1 Direita
 		float horizontalPlayerSpeed = horizontalSpeed*horizontalInput;
@@ -25,27 +35,42 @@ public class PlayerController : MonoBehaviour {
 		else {
 			StopMovingHorizontal();
 		}
-		if(Input.GetButtonDown("Jump")){
+		if(isGrounded){
+			if(Input.GetButtonDown("Jump")){
 			Jump();
+			}
 		}
 		
 	}
 	
 	void MoveHorizontal(float speed){
-	//Adição de força para o movimento, ou seja, mover 
+		//Movimentação do player no eixo X
 		rb.velocity = new Vector2(speed, rb.velocity.y);
 	if(speed <0f){
-		Sr.flipX =true; 
-	}
-	else if(speed > 0f){
-		Sr.flipX =false;
-		}		
-	}
-	void StopMovingHorizontal(){
-		//Função de "parada" do player
-		rb.velocity = new Vector2(0f, rb.velocity.y);			
-		}
+ 		Sr.flipX =true; 
+ 	}
+ 	else if(speed > 0f){
+ 		Sr.flipX =false;
+ 		}
+ 		if(!isJumping){
+ 			//anim.SetInteger("State" , 2);		<- Falta introduzir animações
+ 		}
+ 	}
+ 	void StopMovingHorizontal(){
+		 //Movimentação de parar do player no eixo X
+ 		rb.velocity = new Vector2(0f, rb.velocity.y);
+ 		if(!isJumping){
+ 			//anim.SetInteger("State" , 0);		<- Falta introduzir animações
+ 		}
+ 	}
 		void Jump(){
-			rb.AddForce(new Vector2(0,jumpSpeed));
+ 		isJumping = true;
+ 		rb.AddForce(new Vector2(0f, jumpSpeed));
+ 		Debug.Log(isJumping + "Executou o pulo");
+ 		}
+ 		void OnCollisionEnter2D(Collision2D other){
+ 			if (other.gameObject.layer == LayerMask.NameToLayer("Ground")){
+ 				isJumping = false;
+ 			}
 		}
 }

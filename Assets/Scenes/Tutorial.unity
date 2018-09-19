@@ -1588,6 +1588,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSpeed: 3
   jumpSpeed: 175
+  feet: {fileID: 1493732885}
+  feetWidth: 0.43
+  feetHeight: 0.03
+  isGrounded: 0
+  WhatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &1493732884
 GameObject:
   m_ObjectHideFlags: 0
