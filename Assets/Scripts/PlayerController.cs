@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour {
 	public bool isGrounded;
 	public LayerMask WhatIsGround;
 	bool isJumping = false;
+	Animator anim;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
-		Sr = GetComponent<SpriteRenderer>();		
+		Sr = GetComponent<SpriteRenderer>();
+		anim = GetComponent<Animator>();		
 	}
 
 	void OnDrawGizmos(){ // Desenhar a hit box do feet
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour {
 			if(Input.GetButtonDown("Jump")){
 			Jump();
 			}
+			ShowFalling();
+
 		}
 		
 	}
@@ -56,24 +60,30 @@ public class PlayerController : MonoBehaviour {
  		Sr.flipX =false;
  		}
  		if(!isJumping){
- 			//anim.SetInteger("State" , 2);		<- Falta introduzir animações
+ 		anim.SetInteger("State" , 2);
  		}
+
  	}
  	void StopMovingHorizontal(){
 		 //Movimentação de parar do player no eixo X
  		rb.velocity = new Vector2(0f, rb.velocity.y);
  		if(!isJumping){
- 			//anim.SetInteger("State" , 0);		<- Falta introduzir animações
+ 		anim.SetInteger("State" , 0);
  		}
  	}
 		void Jump(){
  		isJumping = true;
  		rb.AddForce(new Vector2(0f, jumpSpeed));
- 		Debug.Log(isJumping + "Executou o pulo");
+		anim.SetInteger("State" , 1);
  		}
  		void OnCollisionEnter2D(Collision2D other){
  			if (other.gameObject.layer == LayerMask.NameToLayer("Ground")){
  				isJumping = false;
  			}
 		}
+		void ShowFalling(){
+		if (rb.velocity.y <0){
+			anim.SetInteger("State", 3);
+			}
+		}			
 }
