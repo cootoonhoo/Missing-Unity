@@ -2,88 +2,108 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+Idle - 0
+Jump - 1
+Run - 2
+Falling - 3
+Shooting - 4
+Hurt - 5  
+*/
+
 public class PlayerController : MonoBehaviour {
-	SpriteRenderer Sr;
-	public float horizontalSpeed = 5f ;
-	public float jumpSpeed = 60f;
+
+	public float horizontalSpeed = 10f;
+	public float jumpSpeed = 600f;
+
 	Rigidbody2D rb;
-	public Transform feet;
-	public float feetWidth = 0.2f;
-	public float feetHeight = 0.05f;
-	public bool isGrounded;
-	public LayerMask WhatIsGround;
-	bool isJumping = false;
+	SpriteRenderer sr;
 	Animator anim;
+
+	bool isJumping = false;
+	public bool isGrounded = false;
+	public Transform feet;
+	public LayerMask whatIsGround;
+	public float feetWidth = 1f;
+	public float feetHeight = 0.1f;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
-		Sr = GetComponent<SpriteRenderer>();
-		anim = GetComponent<Animator>();		
+		sr = GetComponent<SpriteRenderer>();
+		anim = GetComponent<Animator>();
 	}
 
-	void OnDrawGizmos(){ // Desenhar a hit box do feet
-		Gizmos.DrawWireCube(feet.position, new Vector3(feetWidth,feetHeight,0f));
-	}	
+	void OnDrawGizmos() {
+		Gizmos.DrawWireCube(feet.position, new Vector3(feetWidth, feetHeight, 0f));
+	}
+
 	// Update is called once per frame
 	void Update () {
-		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x,feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, WhatIsGround); //Teste parar constatar se o personagem esta no chão
-		if(isGrounded){//CASO O PLAYER ESTIVER PULANDO, O MOVIMENTO NO EIXO X
-			//teste para andar
-			float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1 Esquerda, 1 Direita
-			float horizontalPlayerSpeed = horizontalSpeed*horizontalInput;
-			if(horizontalPlayerSpeed !=0 ){
-				MoveHorizontal(horizontalPlayerSpeed);
-			}
-			else {
-				StopMovingHorizontal();
-			}
-		}
-
-		if(isGrounded){
-			if(Input.GetButtonDown("Jump")){
-			Jump();
-			}
-			ShowFalling();
-
-		}
 		
-	}
-	
-	void MoveHorizontal(float speed){
-		//Movimentação do player no eixo X
-		rb.velocity = new Vector2(speed, rb.velocity.y);
-	if(speed <0f){
- 		Sr.flipX =true; 
- 	}
- 	else if(speed > 0f){
- 		Sr.flipX =false;
- 		}
- 		if(!isJumping){
- 		anim.SetInteger("State" , 2);
- 		}
-
- 	}
- 	void StopMovingHorizontal(){
-		 //Movimentação de parar do player no eixo X
- 		rb.velocity = new Vector2(0f, rb.velocity.y);
- 		if(!isJumping){
- 		anim.SetInteger("State" , 0);
- 		}
- 	}
-		void Jump(){
- 		isJumping = true;
- 		rb.AddForce(new Vector2(0f, jumpSpeed));
-		anim.SetInteger("State" , 1);
- 		}
- 		void OnCollisionEnter2D(Collision2D other){
- 			if (other.gameObject.layer == LayerMask.NameToLayer("Ground")){
- 				isJumping = false;
- 			}
+		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatIsGround);
+		if(isGrounded){
+		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1: esquerda, 1: direita
+		float horizontalPlayerSpeed = horizontalSpeed * horizontalInput;
+		if (horizontalPlayerSpeed != 0) {
+			MoveHorizontal(horizontalPlayerSpeed);
 		}
-		void ShowFalling(){
-		if (rb.velocity.y <0){
+		else {
+			StopMovingHorizontal();
+		}
+
+		if (Input.GetButtonDown("Jump")) {
+			Jump();
+		}
+
+		ShowFalling();
+		}
+	}
+
+	void MoveHorizontal(float speed) {
+		rb.velocity = new Vector2(speed, rb.velocity.y);
+
+		if (speed < 0f) {
+			sr.flipX = true;
+		}
+		else if (speed > 0f) {
+			sr.flipX = false;
+		}
+
+		if (!isJumping) {
+			anim.SetInteger("State", 2);
+		}
+	}
+
+	void StopMovingHorizontal() {
+		rb.velocity = new Vector2(0f, rb.velocity.y);
+		if (!isJumping) {
+			anim.SetInteger("State", 0);
+		}
+	}
+
+	void ShowFalling() {
+		if (rb.velocity.y < 0f) {
 			anim.SetInteger("State", 3);
-			}
-		}			
+		}
+	}
+
+	void Jump() {
+		if (isGrounded) {
+			isJumping = true;
+			rb.AddForce(new Vector2(0f, jumpSpeed));
+			anim.SetInteger("State", 1);
+		}
+	}
+
+
+   	void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+			isJumping = false;
+		}
+	}
 }
+
+
+
+
