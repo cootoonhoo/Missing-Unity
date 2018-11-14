@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		
 		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatIsGround);
-		if(isGrounded){
+		//if(isGrounded){
 		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1: esquerda, 1: direita
 		float horizontalPlayerSpeed = horizontalSpeed * horizontalInput;
 		if (horizontalPlayerSpeed != 0) {
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		ShowFalling();
-		}
+		//}
 	}
 
 	void MoveHorizontal(float speed) {
