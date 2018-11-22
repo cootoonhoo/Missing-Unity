@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float horizontalSpeed = 10f;
 	public float jumpSpeed = 600f;
+	public static bool CharacterR; 
 
 	Rigidbody2D rb;
 	public SpriteRenderer sr;
@@ -28,6 +29,9 @@ public class PlayerController : MonoBehaviour {
 	public float feetWidth = 1f;
 	public float feetHeight = 0.1f;
 	public float FirePointRadius = 0.1f;
+	public GameObject BulletPrefab;
+	public int BulletCount = 3; 
+
 
 	// Use this for initialization
 	void Start () {
@@ -44,9 +48,15 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		//teste para verificar o tiro
+		if(Input.GetButtonDown("Fire1")){
+			if(BulletCount > 0){ //Verifica se tem bala
+			Shot();
+			BulletCount --;
+			}
+		}	
 		
 		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatIsGround);
-		//if(isGrounded){
 		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1: esquerda, 1: direita
 		float horizontalPlayerSpeed = horizontalSpeed * horizontalInput;
 		if (horizontalPlayerSpeed != 0) {
@@ -55,13 +65,10 @@ public class PlayerController : MonoBehaviour {
 		else {
 			StopMovingHorizontal();
 		}
-
 		if (Input.GetButtonDown("Jump")) {
 			Jump();
 		}
-
 		ShowFalling();
-		//}
 	}
 
 	void MoveHorizontal(float speed) {
@@ -98,11 +105,13 @@ public class PlayerController : MonoBehaviour {
 
 		if (speed < 0f) {
 			sr.flipX = true;
-			FirePoint.transform.position = new Vector3 (transform.position.x - distancia, vet.y, vet.z);			
+			FirePoint.transform.position = new Vector3 (transform.position.x - distancia, vet.y, vet.z);
+			CharacterR = false;			
 		}
 		else if (speed > 0f) {
 			sr.flipX = false;
 			FirePoint.transform.position = new Vector3 (transform.position.x + distancia, vet.y, vet.z);
+			CharacterR = true;	
 		}
 	}
 
@@ -110,10 +119,13 @@ public class PlayerController : MonoBehaviour {
    	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
 			isJumping = false;
+		}if (other.gameObject.layer == LayerMask.NameToLayer("Ammo")) {
+			BulletCount= BulletCount + 5;
+			Destroy(other.gameObject);
 		}
 	}
+	void Shot(){
+	//Logica do tiro - Shootin logic 
+	Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+	}
 }
-
-
-
-

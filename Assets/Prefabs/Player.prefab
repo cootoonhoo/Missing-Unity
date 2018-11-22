@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 61857598820007324}
   - component: {fileID: 50824529773008542}
   - component: {fileID: 114360354612879972}
-  - component: {fileID: 114820775628727168}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -178,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSpeed: 5
   jumpSpeed: 360
+  sr: {fileID: 0}
   isGrounded: 1
   feet: {fileID: 4747239851180742}
   FirePoint: {fileID: 4302061190104500}
@@ -187,20 +187,9 @@ MonoBehaviour:
   feetWidth: 0.5
   feetHeight: 0.05
   FirePointRadius: 0.05
---- !u!114 &114820775628727168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1382112009242264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395771c09f3a0a6418f02d5141117729, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FirePoint: {fileID: 4302061190104500}
   BulletPrefab: {fileID: 1207008671345860, guid: 9c98fc9b465767749af03b69c0333ba5,
     type: 2}
+  BulletCount: 3
 --- !u!212 &212383640904117632
 SpriteRenderer:
   m_ObjectHideFlags: 1

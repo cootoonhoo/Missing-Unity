@@ -3,14 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-	// Pegar o sprie render e flipar na hora do tiro com o sprite do player flipado
 	public float speed = 15f;
 	public Rigidbody2D rb;
+	public SpriteRenderer sr;
+	public bool player;
+	public float bulletlifetime= 5f;
+	
 	void Start () {
-		rb.velocity = transform.right * speed;
-		
+		player = PlayerController.CharacterR; //teste para verificar a direção do player
+		sr = GetComponent<SpriteRenderer>(); // pegar o sprite da bala	
+		Fire(player);
+		Destroy(gameObject, bulletlifetime); // Destroi a bala depois de um tempo
 	}
-	void OnTriggerEnter2D (Collider2D hitInfo){
+	void OnTriggerEnter2D (){
 		Destroy(gameObject);
+	}
+	void Fire(bool Face){ //Define a direção e velocidade da bala
+		if(Face == true ){
+			rb.velocity = transform.right * speed;
+			sr.flipX = false;
+		}
+		else if(Face == false){
+			rb.velocity = transform.right * -speed;
+			sr.flipX = true;
+		}
 	}
 }
