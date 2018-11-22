@@ -17,25 +17,29 @@ public class PlayerController : MonoBehaviour {
 	public float jumpSpeed = 600f;
 
 	Rigidbody2D rb;
-	SpriteRenderer sr;
+	public SpriteRenderer sr;
 	Animator anim;
-
+	float distancia;
 	bool isJumping = false;
 	public bool isGrounded = false;
 	public Transform feet;
+	public Transform FirePoint;
 	public LayerMask whatIsGround;
 	public float feetWidth = 1f;
 	public float feetHeight = 0.1f;
+	public float FirePointRadius = 0.1f;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();
 		anim = GetComponent<Animator>();
+		distancia = Mathf.Abs(FirePoint.transform.position.x - transform.position.x);
 	}
 
 	void OnDrawGizmos() {
 		Gizmos.DrawWireCube(feet.position, new Vector3(feetWidth, feetHeight, 0f));
+		Gizmos.DrawWireSphere(FirePoint.position, FirePointRadius);
 	}
 
 	// Update is called once per frame
@@ -61,14 +65,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void MoveHorizontal(float speed) {
-		rb.velocity = new Vector2(speed, rb.velocity.y);
-
-		if (speed < 0f) {
-			sr.flipX = true;
-		}
-		else if (speed > 0f) {
-			sr.flipX = false;
-		}
+		Flip(speed);
 
 		if (!isJumping) {
 			anim.SetInteger("State", 2);
@@ -93,6 +90,19 @@ public class PlayerController : MonoBehaviour {
 			isJumping = true;
 			rb.AddForce(new Vector2(0f, jumpSpeed));
 			anim.SetInteger("State", 1);
+		}
+	}
+	void Flip(float speed){
+		rb.velocity = new Vector2(speed, rb.velocity.y);
+		Vector3 vet = FirePoint.transform.position;
+
+		if (speed < 0f) {
+			sr.flipX = true;
+			FirePoint.transform.position = new Vector3 (transform.position.x - distancia, vet.y, vet.z);			
+		}
+		else if (speed > 0f) {
+			sr.flipX = false;
+			FirePoint.transform.position = new Vector3 (transform.position.x + distancia, vet.y, vet.z);
 		}
 	}
 
