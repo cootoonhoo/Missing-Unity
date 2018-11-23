@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
 Idle - 0
@@ -12,7 +13,6 @@ Hurt - 5
 */
 
 public class PlayerController : MonoBehaviour {
-
 	public float horizontalSpeed = 10f;
 	public float jumpSpeed = 600f;
 	public static bool CharacterR; 
@@ -30,7 +30,15 @@ public class PlayerController : MonoBehaviour {
 	public float feetHeight = 0.1f;
 	public float FirePointRadius = 0.1f;
 	public GameObject BulletPrefab;
+	float starthealth = 100f; // Lembra de mudar isso para cada inimigo
+	public float currenthealth = 100f;
+
+	private float damagetaken = 20f;
 	public int BulletCount = 3; 
+	[Header("UI Elements")]
+	public Image healthbar;
+	public Color fullcolor;
+	public Color lowcolor;
 
 
 	// Use this for initialization
@@ -53,7 +61,8 @@ public class PlayerController : MonoBehaviour {
 			if(BulletCount > 0){ //Verifica se tem bala
 			Shot();
 			BulletCount --;
-			}
+		}
+		ShowHealth(); // Atualizar a barra de vida
 		}	
 		
 		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatIsGround);
@@ -117,15 +126,39 @@ public class PlayerController : MonoBehaviour {
 
 
    	void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+		if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) { //Logica para o pulo
 			isJumping = false;
-		}if (other.gameObject.layer == LayerMask.NameToLayer("Ammo")) {
+		}if (other.gameObject.layer == LayerMask.NameToLayer("Ammo")) { // Logica para pegar munição
 			BulletCount= BulletCount + 5;
 			Destroy(other.gameObject);
+		}
+		if (other.gameObject.layer == LayerMask.NameToLayer("HealthPack")) { //Logica para pegar a vida
+			currenthealth = currenthealth + 50;
+			if(currenthealth > 100f){
+				currenthealth = 100f;
+			}
+			Destroy(other.gameObject);
+		}
+		if (other.gameObject.layer == LayerMask.NameToLayer("Bullet")) { // Logica para tomar tiro
+			Damaged(damagetaken);
 		}
 	}
 	void Shot(){
 	//Logica do tiro - Shootin logic 
 	Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+	}
+	void Damaged(float damageAmount){ // Logica do dano
+		currenthealth = currenthealth - damageAmount ; 
+		if(currenthealth < 0){
+			Die();
+		}
+	}
+	void Die(){
+
+	}
+	void ShowHealth(){ //Logica da barra de vida
+		float fillAmount = healthbar.fillAmount;
+		healthbar.fillAmount = currenthealth /  starthealth;
+		healthbar.color = Color.Lerp(lowcolor, fullcolor, fillAmount);
 	}
 }
