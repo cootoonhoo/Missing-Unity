@@ -8,7 +8,6 @@ public class Bullet : MonoBehaviour {
 	public SpriteRenderer sr;
 	public bool player;
 	public float bulletlifetime= 5f;
-	public static float  damage = 35f;
 	private GameObject gb;
 	
 	void Start () {

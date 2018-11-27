@@ -30,11 +30,8 @@ public class PlayerController : MonoBehaviour {
 	public float feetHeight = 0.1f;
 	public float FirePointRadius = 0.1f;
 	public GameObject BulletPrefab;
-	float starthealth = 100f; // Lembra de mudar isso para cada inimigo
-	public float currenthealth = 100f;
-
-	private float damagetaken = 20f;
-	public int BulletCount = 3; 
+	public float lifecount = 10f;
+	public static int BulletCount = 3;
 	[Header("UI Elements")]
 	public Image healthbar;
 	public Color fullcolor;
@@ -133,23 +130,23 @@ public class PlayerController : MonoBehaviour {
 			Destroy(other.gameObject);
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("HealthPack")) { //Logica para pegar a vida
-			currenthealth = currenthealth + 50;
-			if(currenthealth > 100f){
-				currenthealth = 100f;
+			lifecount = lifecount + 2;
+			if(lifecount > 10f){
+				lifecount = 10f;
 			}
 			Destroy(other.gameObject);
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("Bullet")) { // Logica para tomar tiro
-			Damaged(damagetaken);
+			Damaged();
 		}
 	}
 	void Shot(){
 	//Logica do tiro - Shootin logic 
 	Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
 	}
-	void Damaged(float damageAmount){ // Logica do dano
-		currenthealth = currenthealth - damageAmount ; 
-		if(currenthealth < 0){
+	void Damaged(){ // Logica do dano
+		lifecount = lifecount-- ; 
+		if(lifecount < 0){
 			Die();
 		}
 	}
@@ -158,7 +155,7 @@ public class PlayerController : MonoBehaviour {
 	}
 	void ShowHealth(){ //Logica da barra de vida
 		float fillAmount = healthbar.fillAmount;
-		healthbar.fillAmount = currenthealth /  starthealth;
+		healthbar.fillAmount = lifecount * 10 /  100;
 		healthbar.color = Color.Lerp(lowcolor, fullcolor, fillAmount);
 	}
 }
