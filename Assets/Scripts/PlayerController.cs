@@ -53,13 +53,13 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		ShowHealth();
 		//teste para verificar o tiro
 		if(Input.GetButtonDown("Fire1")){
 			if(BulletCount > 0){ //Verifica se tem bala
 			Shot();
 			BulletCount --;
 		}
-		ShowHealth(); // Atualizar a barra de vida
 		}	
 		
 		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatIsGround);
@@ -154,8 +154,10 @@ public class PlayerController : MonoBehaviour {
 
 	}
 	void ShowHealth(){ //Logica da barra de vida
+	if(healthbar != null){
 		float fillAmount = healthbar.fillAmount;
 		healthbar.fillAmount = lifecount * 10 /  100;
 		healthbar.color = Color.Lerp(lowcolor, fullcolor, fillAmount);
+		}
 	}
 }
