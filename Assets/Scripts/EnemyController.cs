@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour {
 		
 	}
 	void OnCollisionEnter2D(Collision2D other){
-		if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
+		if (other.gameObject.tag == "Player") {
 			Damage();
 		}
 	}
@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 	void Die(){
-		Destroy(gameObject);
+		Destroy(this.gameObject);
 		Instantiate(DieEffect, Enemy.position, Enemy.rotation);
 	}
 }

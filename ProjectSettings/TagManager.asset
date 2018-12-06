@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Background
   - Ground
-  - Shot
+  - Enemy
+  - Shoot
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Collectibles
   - Player
   - Ammo
-  - Bullet
-  - 
+  - Shoot
+  - Enemy
   - 
   - 
   - 

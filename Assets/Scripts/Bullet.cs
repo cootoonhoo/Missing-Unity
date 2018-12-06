@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
 	public Rigidbody2D rb;
 	public SpriteRenderer sr;
 	public bool player;
-	public float bulletlifetime= 5f;
+	public float bulletlifetime= 1f;
 	private GameObject gb;
 	
 	void Start () {
@@ -19,11 +19,8 @@ public class Bullet : MonoBehaviour {
 			Destroy(gameObject, bulletlifetime); // Destroi a bala depois de um tempo
 		}
 	}
-	void OnCollisionEnter2D(Collision2D other){
-		if (other.gameObject != null ){
-			Debug.Log("Encostou");
-			Destroy(gameObject);
-		}
+	void OnCollisionEnter2D(){
+			Destroy(this.gameObject);
 	}
 	void Fire(bool Face){ //Define a direção  da bala
 		if(Face == true ){
