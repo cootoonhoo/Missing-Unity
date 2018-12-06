@@ -187,7 +187,7 @@ MonoBehaviour:
   feetWidth: 0.41
   feetHeight: 0.05
   FirePointRadius: 0.05
-  BulletPrefab: {fileID: 1207008671345860, guid: 9c98fc9b465767749af03b69c0333ba5,
+  BulletPrefab: {fileID: 1776413583790532, guid: 3feb6beb7da93de4a9019b43f9ee8330,
     type: 2}
   lifecount: 10
   healthbar: {fileID: 0}

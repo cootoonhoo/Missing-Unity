@@ -19,7 +19,11 @@ public class Bullet : MonoBehaviour {
 			Destroy(gameObject, bulletlifetime); // Destroi a bala depois de um tempo
 		}
 	}
-	void OnTriggerEnter2D (){
+	void OnCollisionEnter2D(Collision2D other){
+		if (other.gameObject != null ){
+			Debug.Log("Encostou");
+			Destroy(gameObject);
+		}
 	}
 	void Fire(bool Face){ //Define a direção  da bala
 		if(Face == true ){
