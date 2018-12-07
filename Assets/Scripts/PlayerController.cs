@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour {
 	bool isJumping = false;
 	public bool isGrounded = false;
 	public Transform feet;
-	public Transform FirePoint;
 	public LayerMask whatIsGround;
 	public float feetWidth = 1f;
 	public float feetHeight = 0.1f;
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 	public Image healthbar;
 	public Color fullcolor;
 	public Color lowcolor;
-
+	public Transform FirePoint;
 
 	// Use this for initialization
 	void Start () {

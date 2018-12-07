@@ -5,15 +5,14 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 	private int lifecount = 2;
 	public GameObject DieEffect;
-	public Transform Enemy;
-	
+	public Transform Enemy;	
 	void Start () {
 	}
 	void Update () {
 		
 	}
-	void OnCollisionEnter2D(Collision2D other){
-		if (other.gameObject.tag == "Player") {
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.tag == "Shoot") {
 			Damage();
 		}
 	}

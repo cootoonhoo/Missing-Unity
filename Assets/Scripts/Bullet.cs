@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour {
 	public float speed = 15f;
 	public Rigidbody2D rb;
 	public SpriteRenderer sr;
-	public bool player;
+	private bool player;
 	public float bulletlifetime= 1f;
 	private GameObject gb;
 	
@@ -19,8 +19,10 @@ public class Bullet : MonoBehaviour {
 			Destroy(gameObject, bulletlifetime); // Destroi a bala depois de um tempo
 		}
 	}
-	void OnCollisionEnter2D(){
+	void OnTriggerEnter2D(Collider2D other){
+		if(other != null){
 			Destroy(this.gameObject);
+		}
 	}
 	void Fire(bool Face){ //Define a direção  da bala
 		if(Face == true ){
