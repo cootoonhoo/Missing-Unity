@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIMannager : MonoBehaviour {
 	public Text BulletCount;
+	public GameObject levelComplete;
 	public int Bullet;
 	void Start () {
 		
@@ -18,4 +19,5 @@ public class UIMannager : MonoBehaviour {
 	 public void TextChange(){
 		BulletCount.text = "x " + Bullet; 
 	}
+	
 }

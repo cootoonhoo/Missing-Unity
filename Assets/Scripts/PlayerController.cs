@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour {
 			BulletCount= BulletCount + 5;
 			Destroy(other.gameObject);
 		}
-		if (other.gameObject.layer == LayerMask.NameToLayer("HealthPack")) { //Logica para pegar a vida
+		if (other.gameObject.layer == LayerMask.NameToLayer("Healt")) { //Logica para pegar a vida
 			lifecount = lifecount + 2;
 			if(lifecount > 10f){
 				lifecount = 10f;
@@ -142,11 +142,20 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.layer == LayerMask.NameToLayer("Bullet")) { // Logica para tomar tiro
 			Damaged();
 		}
+		if (other.gameObject.layer == LayerMask.NameToLayer("LevelComplete")) { // Logica para tomar tiro
+			GM.instance.LevelComplete();
+		}
 	}
 	void Shot(){
 	//Logica do tiro - Shootin logic 
 	Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
 	AudioSource.PlayClipAtPoint(ShootSoundEffect, transform.position);
+	if(sr.flipX == true){
+	rb.AddForce(new Vector2(150.0f, 0));
+		}
+	if(sr.flipX == false){
+	rb.AddForce(new Vector2(-150.0f, 0));
+		}
 	}
 	void Damaged(){ // Logica do dano
 		lifecount = lifecount-- ; 
