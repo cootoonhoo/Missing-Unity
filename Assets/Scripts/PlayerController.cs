@@ -31,11 +31,14 @@ public class PlayerController : MonoBehaviour {
 	public GameObject BulletPrefab;
 	public float lifecount = 10f;
 	public static int BulletCount = 3;
+	public Transform FirePoint;
 	[Header("UI Elements")]
 	public Image healthbar;
 	public Color fullcolor;
 	public Color lowcolor;
-	public Transform FirePoint;
+
+	[Header("Sound Effects")]
+	public AudioClip ShootSoundEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -143,6 +146,7 @@ public class PlayerController : MonoBehaviour {
 	void Shot(){
 	//Logica do tiro - Shootin logic 
 	Instantiate(BulletPrefab, FirePoint.position, FirePoint.rotation);
+	AudioSource.PlayClipAtPoint(ShootSoundEffect, transform.position);
 	}
 	void Damaged(){ // Logica do dano
 		lifecount = lifecount-- ; 
