@@ -63,6 +63,12 @@ public class GM : MonoBehaviour {
 		StartCoroutine(MuteMusic(true, 0.5f));
 		ui.levelComplete.SetActive(true);
 	}
+	public void ShowPanel(GameObject Panel){
+		Panel.gameObject.SetActive(true);
+	}
+	public void HidePanel(GameObject Panel){
+		Panel.gameObject.SetActive(false);
+	}
 
 	IEnumerator MuteMusic(bool value, float delay) {
 		yield return new WaitForSeconds(delay);
