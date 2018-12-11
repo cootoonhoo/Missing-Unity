@@ -60,7 +60,7 @@ public class GM : MonoBehaviour {
 
 	public void LevelComplete() {
 		Destroy(player.gameObject);
-		StartCoroutine(MuteMusic(true, 1f));
+		StartCoroutine(MuteMusic(true, 0.5f));
 		ui.levelComplete.SetActive(true);
 	}
 
