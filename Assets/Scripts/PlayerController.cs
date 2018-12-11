@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.layer == LayerMask.NameToLayer("Bullet")) { // Logica para tomar tiro
 			Damaged();
 		}
-		if (other.gameObject.layer == LayerMask.NameToLayer("LevelComplete")) { // Logica para tomar tiro
+		if (other.gameObject.layer == LayerMask.NameToLayer("LevelComplete")) {
 			GM.instance.LevelComplete();
 		}
 	}
