@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 052549f6efc96fc48ad6c7290f6662bb
+timeCreated: 1545094051
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: CRUMPLED
+  fontNames:
+  - CRUMPLED
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
