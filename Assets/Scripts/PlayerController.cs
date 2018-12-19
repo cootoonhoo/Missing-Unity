@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	Rigidbody2D rb;
 	public SpriteRenderer sr;
 	Animator anim;
+
 	float distancia;
 	bool isJumping = false;
 	public bool isGrounded = false;
@@ -27,9 +28,14 @@ public class PlayerController : MonoBehaviour {
 	public LayerMask whatIsGround;
 	public float feetWidth = 1f;
 	public float feetHeight = 0.1f;
+	public float distanceL;
+	public LayerMask whatisLadder;
+	public bool isClimbing = false;
+	public float verticalInput;
+	public float verticalSpeed = 5f;
 	public float FirePointRadius = 0.1f;
 	public GameObject BulletPrefab;
-	public float lifecount = 10f;
+	public float lifecount;
 	public static int BulletCount = 0;
 	public Transform FirePoint;
 	[Header("UI Elements")]
@@ -57,10 +63,10 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		lifecount = GM.instance.Plifes;
 		if(this.gameObject.transform.position.y < GM.instance.yLive){
-			GM.instance.KillPlayer();
+			GM.instance.KillPlayer();			
 		}
-
 		ShowHealth();
 		//teste para verificar o tiro
 		if(Input.GetButtonDown("Fire1")){
@@ -70,7 +76,12 @@ public class PlayerController : MonoBehaviour {
 			}
 		}
 
-		
+		isClimbing = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatisLadder);
+		if(isClimbing == true){
+			verticalInput = Input.GetAxisRaw("Vertical");
+			rb.velocity = new Vector2(rb.velocity.x, verticalInput * verticalSpeed);
+
+		}
 		
 		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatIsGround);
 		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1: esquerda, 1: direita
@@ -81,6 +92,7 @@ public class PlayerController : MonoBehaviour {
 		else {
 			StopMovingHorizontal();
 		}
+
 		if (Input.GetButtonDown("Jump")) {
 			Jump();
 		}
@@ -101,7 +113,6 @@ public class PlayerController : MonoBehaviour {
 			anim.SetInteger("State", 0);
 		}
 	}
-
 	void ShowFalling() {
 		if (rb.velocity.y < 0f) {
 			anim.SetInteger("State", 3);
@@ -136,7 +147,7 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) { //Logica para o pulo
 			isJumping = false;
 		}if (other.gameObject.layer == LayerMask.NameToLayer("Ammo")) { // Logica para pegar munição
-			BulletCount= BulletCount + 5;
+			BulletCount = BulletCount + 3;
 			Destroy(other.gameObject);
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("Healt")) { //Logica para pegar a vida

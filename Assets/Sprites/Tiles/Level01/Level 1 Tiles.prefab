@@ -1005,6 +1005,15 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: 15, y: -1, z: 0}
+    second:
+      m_TileIndex: 48
+      m_TileSpriteIndex: 66
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 1
@@ -1103,8 +1112,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 81a226714e46281479a35e60ecdb018f, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 0026ee9315db4fd4dac57bb69be72ae7, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 41432a16c074f3f49a156b1e47e6223a, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: c26fe60e07a58c944883e0a1867de9fb, type: 2}
   - m_RefCount: 5
@@ -1312,8 +1321,8 @@ Tilemap:
     m_Data: {fileID: 21300194, guid: 6053985e2e1a4ba4d86972581ceec186, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300196, guid: 6053985e2e1a4ba4d86972581ceec186, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: e5a33e7b288be024e9071a15b6de734c, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300218, guid: 6053985e2e1a4ba4d86972581ceec186, type: 3}
   - m_RefCount: 1
@@ -1353,7 +1362,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300424, guid: 6053985e2e1a4ba4d86972581ceec186, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 96
+  - m_RefCount: 97
     m_Data:
       e00: 1
       e01: 0
@@ -1372,7 +1381,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 96
+  - m_RefCount: 97
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: 2.2e-44, g: 0, b: 0, a: NaN}
@@ -1499,7 +1508,7 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 1
+    m_DirtyIndex: 0
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
