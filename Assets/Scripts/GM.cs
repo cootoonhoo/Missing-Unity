@@ -74,20 +74,21 @@ public class GM : MonoBehaviour {
 		yield return new WaitForSeconds(delay);
 		Camera.main.GetComponentInChildren<AudioSource>().mute = value;
 	}
-	public void KillPlayer() {
-		if (player != null) {
+	public void KillPlayer(){
+		if(player != null){
+			AudioSource.PlayClipAtPoint(player.HurtEffect, player.transform.position);
 			Destroy(player.gameObject);
-			player.lifecount = player.lifecount -2f ;
-			if (player.lifecount > 0) {
-			RespawnPlayer();
+			player.lifecount = player.lifecount -2f;
+			if(player.lifecount > 0f ){
+				RespawnPlayer();
 			}
-			else {
+			else{
 				GameOver();
 			}
 		}
 	}
 	public void GameOver(){
-	ui.gameOver.SetActive(true);
+
 	}
 
 }

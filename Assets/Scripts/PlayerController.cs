@@ -57,6 +57,10 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if(this.gameObject.transform.position.y < GM.instance.yLive){
+			GM.instance.KillPlayer();
+		}
+
 		ShowHealth();
 		//teste para verificar o tiro
 		if(Input.GetButtonDown("Fire1")){
@@ -169,7 +173,6 @@ public class PlayerController : MonoBehaviour {
 	}
 	void Die(){
 		Destroy(this.gameObject);
-		GM.instance.GameOver();
 	}
 	void ShowHealth(){ //Logica da barra de vida
 	if(healthbar != null){
