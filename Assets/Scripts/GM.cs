@@ -8,7 +8,7 @@ public class GM : MonoBehaviour {
 	public static GM instance = null;
 
 	public float yLive = -10;
-	public float Plifes = 10f;
+	public float PlayerHealth = 10f;
 
 	PlayerController player;
 
@@ -79,9 +79,8 @@ public class GM : MonoBehaviour {
 		if(player != null){
 			AudioSource.PlayClipAtPoint(player.HurtEffect, player.transform.position);
 			Destroy(player.gameObject);
-			Plifes = Plifes - 2f;
-			Debug.Log(Plifes);
-			if(Plifes > 0f ){
+			PlayerHealth = PlayerHealth - 2f;
+			if(PlayerHealth > 0f ){
 				RespawnPlayer();
 			}
 			else{
@@ -89,7 +88,17 @@ public class GM : MonoBehaviour {
 			}
 		}
 	}
+	public void PlayerDamaged(){
+		PlayerHealth = PlayerHealth-- ;
+		AudioSource.PlayClipAtPoint(player.HurtEffect, player.transform.position);
+		if(PlayerHealth < 0f){
+			PlayerDie();
+		}
+	}
 	public void GameOver(){
+
+	}
+	public void PlayerDie(){
 
 	}
 

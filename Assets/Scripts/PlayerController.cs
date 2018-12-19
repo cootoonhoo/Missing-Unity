@@ -35,13 +35,8 @@ public class PlayerController : MonoBehaviour {
 	public float verticalSpeed = 5f;
 	public float FirePointRadius = 0.1f;
 	public GameObject BulletPrefab;
-	public float lifecount;
 	public static int BulletCount = 0;
 	public Transform FirePoint;
-	[Header("UI Elements")]
-	public Image healthbar;
-	public Color fullcolor;
-	public Color lowcolor;
 
 	[Header("Sound Effects")]
 	public AudioClip ShootSoundEffect;
@@ -63,11 +58,9 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		lifecount = GM.instance.Plifes;
 		if(this.gameObject.transform.position.y < GM.instance.yLive){
 			GM.instance.KillPlayer();			
 		}
-		ShowHealth();
 		//teste para verificar o tiro
 		if(Input.GetButtonDown("Fire1")){
 			if(BulletCount > 0){ //Verifica se tem bala
@@ -151,17 +144,19 @@ public class PlayerController : MonoBehaviour {
 			Destroy(other.gameObject);
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("Healt")) { //Logica para pegar a vida
-			lifecount = lifecount + 2;
-			if(lifecount > 10f){
-				lifecount = 10f;
+			GM.instance.PlayerHealth = GM.instance.PlayerHealth + 2;
+			if(GM.instance.PlayerHealth > 10f){
+				GM.instance.PlayerHealth = 10f;
 			}
 			Destroy(other.gameObject);
 		}
-		if (other.gameObject.layer == LayerMask.NameToLayer("Bullet")) { // Logica para tomar tiro
-			Damaged();
-		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("LevelComplete")) {
 			GM.instance.LevelComplete();
+		}
+	}
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.tag == "Shoot") {
+			GM.instance.PlayerDamaged();
 		}
 	}
 	void Shot(){
@@ -173,23 +168,6 @@ public class PlayerController : MonoBehaviour {
 		}
 	if(sr.flipX == false){
 	rb.AddForce(new Vector2(-150.0f, 0));
-		}
-	}
-	void Damaged(){ // Logica do dano
-		lifecount = lifecount-- ;
-		Instantiate(HurtEffect);
-		if(lifecount < 0){
-			Die();
-		}
-	}
-	void Die(){
-		Destroy(this.gameObject);
-	}
-	void ShowHealth(){ //Logica da barra de vida
-	if(healthbar != null){
-		float fillAmount = healthbar.fillAmount;
-		healthbar.fillAmount = lifecount * 10 /  100;
-		healthbar.color = Color.Lerp(lowcolor, fullcolor, fillAmount);
 		}
 	}
 }
