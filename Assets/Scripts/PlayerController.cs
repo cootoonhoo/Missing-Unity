@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
 	public float FirePointRadius = 0.1f;
 	public GameObject BulletPrefab;
 	public float lifecount = 10f;
-	public static int BulletCount = 3;
+	public static int BulletCount = 0;
 	public Transform FirePoint;
 	[Header("UI Elements")]
 	public Image healthbar;
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
 
 	[Header("Sound Effects")]
 	public AudioClip ShootSoundEffect;
+	public AudioClip HurtEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -62,8 +63,10 @@ public class PlayerController : MonoBehaviour {
 			if(BulletCount > 0){ //Verifica se tem bala
 			Shot();
 			BulletCount --;
+			}
 		}
-		}	
+
+		
 		
 		isGrounded = Physics2D.OverlapBox(new Vector2(feet.position.x, feet.position.y), new Vector2(feetWidth, feetHeight), 360.0f, whatIsGround);
 		float horizontalInput = Input.GetAxisRaw("Horizontal"); // -1: esquerda, 1: direita
@@ -158,13 +161,15 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 	void Damaged(){ // Logica do dano
-		lifecount = lifecount-- ; 
+		lifecount = lifecount-- ;
+		Instantiate(HurtEffect);
 		if(lifecount < 0){
 			Die();
 		}
 	}
 	void Die(){
-
+		Destroy(this.gameObject);
+		GM.instance.GameOver();
 	}
 	void ShowHealth(){ //Logica da barra de vida
 	if(healthbar != null){

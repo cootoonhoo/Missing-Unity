@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIMannager : MonoBehaviour {
 	public Text BulletCount;
 	public GameObject levelComplete;
+	public GameObject gameOver;
 	public int Bullet;
 	void Start () {
 		

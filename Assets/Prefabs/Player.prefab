@@ -194,6 +194,7 @@ MonoBehaviour:
   fullcolor: {r: 1, g: 1, b: 1, a: 1}
   lowcolor: {r: 0.8455882, g: 0, b: 0, a: 1}
   ShootSoundEffect: {fileID: 8300000, guid: a0455e0e3d73ea7459e6257b43536408, type: 3}
+  HurtEffect: {fileID: 8300000, guid: 5fb224304cb01eb4296c689bbd38fbba, type: 3}
 --- !u!212 &212383640904117632
 SpriteRenderer:
   m_ObjectHideFlags: 1
