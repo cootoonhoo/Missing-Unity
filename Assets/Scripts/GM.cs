@@ -9,6 +9,7 @@ public class GM : MonoBehaviour {
 
 	public float yLive = -10;
 	public float PlayerHealth = 10f;
+	public int PlayerAmmo = 0;
 
 	PlayerController player;
 

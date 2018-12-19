@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Enemy
   - Shoot
+  - EnemyShoot
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - LevelComplete
   - TutorialPanel1
   - Ladder
-  - 
+  - EnemyShoot
   - 
   - 
   - 

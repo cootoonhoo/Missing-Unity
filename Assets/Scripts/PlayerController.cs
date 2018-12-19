@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 	public float verticalSpeed = 5f;
 	public float FirePointRadius = 0.1f;
 	public GameObject BulletPrefab;
-	public static int BulletCount = 0;
+	public static int BulletCount ;
 	public Transform FirePoint;
 
 	[Header("Sound Effects")]
@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		BulletCount = GM.instance.PlayerAmmo;
 		if(this.gameObject.transform.position.y < GM.instance.yLive){
 			GM.instance.KillPlayer();			
 		}
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 		if(Input.GetButtonDown("Fire1")){
 			if(BulletCount > 0){ //Verifica se tem bala
 			Shot();
-			BulletCount --;
+			 GM.instance.PlayerAmmo --;
 			}
 		}
 
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) { //Logica para o pulo
 			isJumping = false;
 		}if (other.gameObject.layer == LayerMask.NameToLayer("Ammo")) { // Logica para pegar munição
-			BulletCount = BulletCount + 3;
+			GM.instance.PlayerAmmo =  GM.instance.PlayerAmmo + 3;
 			Destroy(other.gameObject);
 		}
 		if (other.gameObject.layer == LayerMask.NameToLayer("Healt")) { //Logica para pegar a vida
