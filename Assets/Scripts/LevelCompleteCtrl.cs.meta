@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 48536dd0e15c9a74ea451bcc3fb346a9
+timeCreated: 1545261382
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - btNextLevel: {instanceID: 0}
+  - goldenStar: {fileID: 21300000, guid: a6a6ad774580533488d977b7c7879ae8, type: 3}
+  - Star1: {instanceID: 0}
+  - Star2: {instanceID: 0}
+  - Star3: {instanceID: 0}
+  - txtScore: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

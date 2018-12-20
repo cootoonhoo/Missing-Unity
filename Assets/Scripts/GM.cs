@@ -103,4 +103,9 @@ public class GM : MonoBehaviour {
 
 	}
 
+    public int Score()
+    {
+        return PlayerController.BulletCount;
+    }
+
 }
