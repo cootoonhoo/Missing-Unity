@@ -154,10 +154,14 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.layer == LayerMask.NameToLayer("LevelComplete")) {
 			GM.instance.LevelComplete();
 		}
-	}
-	void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.tag == "Shoot") {
+		if (other.gameObject.tag == "Enemy") {
 			GM.instance.PlayerDamaged();
+			if(sr.flipX == true){
+	rb.AddForce(new Vector2(450.0f, 0));
+		}
+	if(sr.flipX == false){
+	rb.AddForce(new Vector2(-450.0f, 0));
+		}
 		}
 	}
 	void Shot(){

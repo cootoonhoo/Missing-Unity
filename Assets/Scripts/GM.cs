@@ -39,6 +39,9 @@ public class GM : MonoBehaviour {
 				player = obj.GetComponent<PlayerController>();
 			}
 		}
+		if(Input.GetKeyDown(KeyCode.M)){
+			ExitToMainMenu();
+		}
 	}
 
 	public void RestartLevel() {
@@ -46,7 +49,7 @@ public class GM : MonoBehaviour {
 	}
 
 	public void ExitToMainMenu() {
-		LoadScene("MainMenu");
+		LoadScene("Menu");
 	}
 
 	public void CloseApp() {
@@ -90,22 +93,21 @@ public class GM : MonoBehaviour {
 		}
 	}
 	public void PlayerDamaged(){
-		PlayerHealth = PlayerHealth-- ;
+		PlayerHealth = PlayerHealth - 2f;
 		AudioSource.PlayClipAtPoint(player.HurtEffect, player.transform.position);
 		if(PlayerHealth < 0f){
-			PlayerDie();
+			GameOver();
 		}
 	}
 	public void GameOver(){
-
-	}
-	public void PlayerDie(){
-
+		Destroy(player.gameObject);
+		StartCoroutine(MuteMusic(true, 0.5f));
+		ui.gameOver.SetActive(true);
 	}
 
     public int Score()
     {
-        return PlayerController.BulletCount;
+        return PlayerAmmo;
     }
 
 }
